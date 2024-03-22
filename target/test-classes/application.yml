@@ -1,20 +1,16 @@
+server:
+  port: 8888
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/caritas?useSSL=false&useTimezone=true&serverTimezone=UTC
-    username: root
-    password: admin123
   jpa:
     hibernate:
-      ddl-auto: none
+      ddl-auto: update
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
       show-sql: false
 springdoc:
-  pathsToMatch: 
-  - /user/**
-  - /produtos/**
-  - /familia/**
+  pathsToMatch: /user/**
   swagger-ui: 
    use-root-path: true

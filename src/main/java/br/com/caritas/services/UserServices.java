@@ -15,7 +15,7 @@ import br.com.caritas.data.vo.v1.UserVo;
 import br.com.caritas.exceptions.ResourceNotFoundExeption;
 import br.com.caritas.mapper.DozerMapper;
 import br.com.caritas.model.User;
-import br.com.caritas.reositories.UserRepository;
+import br.com.caritas.repositories.UserRepository;
 
 @Service
 public class UserServices {
@@ -29,7 +29,7 @@ public class UserServices {
 
 	public UserVo findById(long id) {
 		
-		logger.info("Find one person!");
+		logger.info("Find one user!");
 
 		var entity = repositoriy.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundExeption("No records found for this ID!"));
