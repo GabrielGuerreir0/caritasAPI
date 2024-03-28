@@ -38,6 +38,18 @@ public class UserServices {
 		return vo;
 		
 	} 
+	
+	public UserVo findByEmailAndSenha(String email, String senha) {
+		
+		logger.info("Find email and senha user!");
+		
+		var entity = repositoriy.findByEmailAndSenha(email, senha)
+				.orElseThrow(() -> new ResourceNotFoundExeption("No records found for this ID!"));
+		UserVo vo = DozerMapper.ParseObject(entity, UserVo.class);
+		vo.add(linkTo(methodOn(UserController.class).findById(vo.getKey())).withSelfRel());
+		return vo;
+		
+	} 
 
 	public List<UserVo> findAll() {
 		logger.info("Find all people!!");

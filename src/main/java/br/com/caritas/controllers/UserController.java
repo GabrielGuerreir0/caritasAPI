@@ -28,11 +28,30 @@ import org.springframework.web.bind.annotation.RequestBody;
 @RequestMapping("/user")
 @Tag(name="User", description = "Endpoints for Managing User")
 public class UserController {
-
 	
 	
 	@Autowired
 	private UserServices service;
+	
+	
+	@PostMapping(value = "/login", consumes = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML}, 
+			produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML})
+	@Operation(summary = "Login as User", description = "Login as User by passing in a JSON, XML or YML",
+	tags = {"Login"},
+	responses = {
+			@ApiResponse(description = "Success", responseCode = "200", 
+					content = @Content (schema = @Schema(implementation = UserVo.class))
+									),
+			@ApiResponse(description = "Bad Rquest", responseCode = "400", content = @Content),
+			@ApiResponse(description = "Unauthorizedt", responseCode = "401", content = @Content),
+			@ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
+	}
+)
+	public UserVo login(@RequestBody UserVo user) {
+		System.out.println("login: " + user.getEmail() + " | "+ user.getSenha());
+		return service.findByEmailAndSenha(user.getEmail(), user.getSenha());
+	}
+	
 
 	@GetMapping(value = "/{id}", produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML})
 	@Operation(summary = "Finds a User", description = "Finds a User",
