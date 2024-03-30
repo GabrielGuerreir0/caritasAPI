@@ -70,20 +70,16 @@ public class UserServices {
 	public UserVo findByEmailAndSenha(String email, String senha) {
 	    logger.info("Find email and senha user!");
 
-	    // Encontre todas as contas associadas ao email fornecido
 	    List<User> users = repositoriy.findByEmail(email);
 
-	    // Verifique as senhas para cada conta encontrada
 	    for (User user : users) {
 	        if (encoder.matches(senha, user.getSenha())) {
-	            // Se uma correspondência for encontrada, retorne os detalhes da conta
 	            UserVo vo = DozerMapper.ParseObject(user, UserVo.class);
 	            vo.add(linkTo(methodOn(UserController.class).findById(vo.getKey())).withSelfRel());
 	            return vo;
 	        }
 	    }
 
-	    // Se nenhuma correspondência for encontrada ou nenhuma senha corresponder, lance uma exceção ou retorne uma mensagem de erro
 	    throw new ResourceNotFoundExeption("Credenciais inválidas. Por favor, verifique seu email e senha.");
 	}
 
