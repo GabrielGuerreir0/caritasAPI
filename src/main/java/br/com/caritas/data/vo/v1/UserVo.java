@@ -31,8 +31,6 @@ public class UserVo extends RepresentationModel<UserVo> implements Serializable 
 	public UserVo() {
 	}
 
-	
-
 	public long getKey() {
 		return key;
 	}
@@ -77,9 +75,5 @@ public class UserVo extends RepresentationModel<UserVo> implements Serializable 
 		return Objects.equals(email, other.email) && key == other.key && Objects.equals(nome, other.nome)
 				&& Objects.equals(senha, other.senha);
 	}
-
-	
-
-	
 
 }

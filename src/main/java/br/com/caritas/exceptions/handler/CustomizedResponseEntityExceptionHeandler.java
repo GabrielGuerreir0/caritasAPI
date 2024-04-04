@@ -15,25 +15,19 @@ import br.com.caritas.exceptions.ResourceNotFoundExeption;
 
 @ControllerAdvice
 @RestController
-public class CustomizedResponseEntityExceptionHeandler extends ResponseEntityExceptionHandler{
+public class CustomizedResponseEntityExceptionHeandler extends ResponseEntityExceptionHandler {
 
 	@ExceptionHandler(Exception.class)
-	public final ResponseEntity<ExseptionResponse> handleAllExceptions(
-			Exception ex, WebRequest request) {
-		ExseptionResponse exceptionResponse = new ExseptionResponse(
-				new Date(),
-				ex.getMessage(),
+	public final ResponseEntity<ExseptionResponse> handleAllExceptions(Exception ex, WebRequest request) {
+		ExseptionResponse exceptionResponse = new ExseptionResponse(new Date(), ex.getMessage(),
 				request.getDescription(false));
-		return new ResponseEntity<>(exceptionResponse,HttpStatus.INTERNAL_SERVER_ERROR);
+		return new ResponseEntity<>(exceptionResponse, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
-	
+
 	@ExceptionHandler(ResourceNotFoundExeption.class)
-	public final ResponseEntity<ExseptionResponse> handleNotFoundAllExceptions(
-			Exception ex, WebRequest request) {
-		ExseptionResponse exceptionResponse = new ExseptionResponse(
-				new Date(),
-				ex.getMessage(),
+	public final ResponseEntity<ExseptionResponse> handleNotFoundAllExceptions(Exception ex, WebRequest request) {
+		ExseptionResponse exceptionResponse = new ExseptionResponse(new Date(), ex.getMessage(),
 				request.getDescription(false));
-		return new ResponseEntity<>(exceptionResponse,HttpStatus.NOT_FOUND);
+		return new ResponseEntity<>(exceptionResponse, HttpStatus.NOT_FOUND);
 	}
 }

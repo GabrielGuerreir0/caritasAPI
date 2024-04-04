@@ -11,26 +11,20 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import br.com.caritas.serialization.converter.YamlJackson2HttpMessageConverter;
 
 @Configuration
-public class WebConfig implements WebMvcConfigurer{
-	
+public class WebConfig implements WebMvcConfigurer {
+
 	private static final MediaType MEDIA_TYPE_APPLICATION_YML = MediaType.valueOf("application/x-yaml");
-	
+
 	@Override
 	public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
 		converters.add(new YamlJackson2HttpMessageConverter());
 	}
-	
+
 	@Override
 	public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
-		configurer.favorParameter(false)
-		.ignoreAcceptHeader(false)
-		.useRegisteredExtensionsOnly(false)
-		.defaultContentType(MediaType.APPLICATION_JSON)
-			.mediaType("json", MediaType.APPLICATION_JSON)
-			.mediaType("xml", MediaType.APPLICATION_XML)
-			.mediaType("x-yaml", MEDIA_TYPE_APPLICATION_YML);
+		configurer.favorParameter(false).ignoreAcceptHeader(false).useRegisteredExtensionsOnly(false)
+				.defaultContentType(MediaType.APPLICATION_JSON).mediaType("json", MediaType.APPLICATION_JSON)
+				.mediaType("xml", MediaType.APPLICATION_XML).mediaType("x-yaml", MEDIA_TYPE_APPLICATION_YML);
 	}
 
-	
-	
 }

@@ -26,117 +26,84 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 @RequestMapping("/user")
-@Tag(name="User", description = "Endpoints for Managing User")
+@Tag(name = "User", description = "Endpoints for Managing User")
 public class UserController {
-	
-	
+
 	@Autowired
 	private UserServices service;
-	
-	
-	@PostMapping(value = "/login", consumes = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML}, 
-			produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML})
-	@Operation(summary = "Login as User", description = "Login as User by passing in a JSON, XML or YML",
-	tags = {"Login"},
-	responses = {
-			@ApiResponse(description = "Success", responseCode = "200", 
-					content = @Content (schema = @Schema(implementation = UserVo.class))
-									),
-			@ApiResponse(description = "Bad Rquest", responseCode = "400", content = @Content),
-			@ApiResponse(description = "Unauthorizedt", responseCode = "401", content = @Content),
-			@ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
-	}
-)
+
+	@PostMapping(value = "/login", consumes = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML,
+			MediaType.APPLICATION_YML }, produces = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML,
+					MediaType.APPLICATION_YML })
+	@Operation(summary = "Login as User", description = "Login as User by passing in a JSON, XML or YML", tags = {
+			"Login" }, responses = {
+					@ApiResponse(description = "Success", responseCode = "200", content = @Content(schema = @Schema(implementation = UserVo.class))),
+					@ApiResponse(description = "Bad Rquest", responseCode = "400", content = @Content),
+					@ApiResponse(description = "Unauthorizedt", responseCode = "401", content = @Content),
+					@ApiResponse(description = "Internal Error", responseCode = "500", content = @Content), })
 	public UserVo login(@RequestBody UserVo user) {
-		System.out.println("login: " + user.getEmail() + " | "+ user.getSenha());
+		System.out.println("login: " + user.getEmail() + " | " + user.getSenha());
 		return service.findByEmailAndSenha(user.getEmail(), user.getSenha());
 	}
-	
 
-	@GetMapping(value = "/{id}", produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML})
-	@Operation(summary = "Finds a User", description = "Finds a User",
-		tags = {"User"},
-		responses = {
-				@ApiResponse(description = "Success", responseCode = "200", 
-						content = @Content (schema = @Schema(implementation = UserVo.class))
-										),
-				@ApiResponse(description = "Bad Rquest", responseCode = "400", content = @Content),
-				@ApiResponse(description = "Unauthorizedt", responseCode = "401", content = @Content),
-				@ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
-				@ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
-		}
-	)
+	@GetMapping(value = "/{id}", produces = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML,
+			MediaType.APPLICATION_YML })
+	@Operation(summary = "Finds a User", description = "Finds a User", tags = { "User" }, responses = {
+			@ApiResponse(description = "Success", responseCode = "200", content = @Content(schema = @Schema(implementation = UserVo.class))),
+			@ApiResponse(description = "Bad Rquest", responseCode = "400", content = @Content),
+			@ApiResponse(description = "Unauthorizedt", responseCode = "401", content = @Content),
+			@ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
+			@ApiResponse(description = "Internal Error", responseCode = "500", content = @Content), })
 	public UserVo findById(@PathVariable(value = "id") long id) {
 		return service.findById(id);
 	}
 
-	@GetMapping(produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML})
-	@Operation(summary = "Finds all User", description = "Finds all User",
-	tags = {"User"},
-	responses = {
-			@ApiResponse(description = "Success", responseCode = "200", 
-					content = {
-							@Content(
-									mediaType = "application/json",
-									array = @ArraySchema(schema = @Schema(implementation = UserVo.class))
-									)
-					}),
+	@GetMapping(produces = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML })
+	@Operation(summary = "Finds all User", description = "Finds all User", tags = { "User" }, responses = {
+			@ApiResponse(description = "Success", responseCode = "200", content = {
+					@Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = UserVo.class))) }),
 			@ApiResponse(description = "Bad Rquest", responseCode = "400", content = @Content),
 			@ApiResponse(description = "Unauthorizedt", responseCode = "401", content = @Content),
 			@ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
-			@ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
-	}
-)
+			@ApiResponse(description = "Internal Error", responseCode = "500", content = @Content), })
 	public List<UserVo> findAll() {
 		return service.findAll();
 	}
 
-	@PostMapping(consumes = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML}, 
-			produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML})
-	@Operation(summary = "Add a new User", description = "Add a new User by passing in a JSON, XML or YML",
-	tags = {"User"},
-	responses = {
-			@ApiResponse(description = "Success", responseCode = "200", 
-					content = @Content (schema = @Schema(implementation = UserVo.class))
-									),
-			@ApiResponse(description = "Bad Rquest", responseCode = "400", content = @Content),
-			@ApiResponse(description = "Unauthorizedt", responseCode = "401", content = @Content),
-			@ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
-	}
-)
+	@PostMapping(consumes = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML,
+			MediaType.APPLICATION_YML }, produces = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML,
+					MediaType.APPLICATION_YML })
+	@Operation(summary = "Add a new User", description = "Add a new User by passing in a JSON, XML or YML", tags = {
+			"User" }, responses = {
+					@ApiResponse(description = "Success", responseCode = "200", content = @Content(schema = @Schema(implementation = UserVo.class))),
+					@ApiResponse(description = "Bad Rquest", responseCode = "400", content = @Content),
+					@ApiResponse(description = "Unauthorizedt", responseCode = "401", content = @Content),
+					@ApiResponse(description = "Internal Error", responseCode = "500", content = @Content), })
 	public UserVo create(@RequestBody UserVo user) {
 		return service.create(user);
 	}
 
-	@PutMapping(consumes = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML}, 
-			produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML})
-	@Operation(summary = "Updates a User", description = "Updates a User by passing in a JSON, XML or YML",
-	tags = {"User"},
-	responses = {
-			@ApiResponse(description = "Updated", responseCode = "200", 
-					content = @Content (schema = @Schema(implementation = UserVo.class))
-									),
-			@ApiResponse(description = "Bad Rquest", responseCode = "400", content = @Content),
-			@ApiResponse(description = "Unauthorizedt", responseCode = "401", content = @Content),
-			@ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
-			@ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
-	}
-)
+	@PutMapping(consumes = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML,
+			MediaType.APPLICATION_YML }, produces = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML,
+					MediaType.APPLICATION_YML })
+	@Operation(summary = "Updates a User", description = "Updates a User by passing in a JSON, XML or YML", tags = {
+			"User" }, responses = {
+					@ApiResponse(description = "Updated", responseCode = "200", content = @Content(schema = @Schema(implementation = UserVo.class))),
+					@ApiResponse(description = "Bad Rquest", responseCode = "400", content = @Content),
+					@ApiResponse(description = "Unauthorizedt", responseCode = "401", content = @Content),
+					@ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
+					@ApiResponse(description = "Internal Error", responseCode = "500", content = @Content), })
 	public UserVo update(@RequestBody UserVo user) {
 		return service.update(user);
 	}
 
 	@DeleteMapping(value = "/{id}")
-	@Operation(summary = "Delete a User", description = "Delete a User by passing in a JSON, XML or YML",
-	tags = {"User"},
-	responses = {
-			@ApiResponse(description = "NO Content", responseCode = "204", content = @Content),
-			@ApiResponse(description = "Bad Rquest", responseCode = "400", content = @Content),
-			@ApiResponse(description = "Unauthorizedt", responseCode = "401", content = @Content),
-			@ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
-			@ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
-	}
-)
+	@Operation(summary = "Delete a User", description = "Delete a User by passing in a JSON, XML or YML", tags = {
+			"User" }, responses = { @ApiResponse(description = "NO Content", responseCode = "204", content = @Content),
+					@ApiResponse(description = "Bad Rquest", responseCode = "400", content = @Content),
+					@ApiResponse(description = "Unauthorizedt", responseCode = "401", content = @Content),
+					@ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
+					@ApiResponse(description = "Internal Error", responseCode = "500", content = @Content), })
 	public ResponseEntity<?> delete(@PathVariable(value = "id") long id) {
 		service.delete(id);
 		return ResponseEntity.noContent().build();

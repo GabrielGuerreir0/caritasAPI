@@ -29,9 +29,9 @@ public class ItemController {
 
 	@Autowired
 	private ItemServices service;
-	
-	@GetMapping(value = "/produtos/{id}/item/{itemId}", produces = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML,
-			MediaType.APPLICATION_YML })
+
+	@GetMapping(value = "/produtos/{id}/item/{itemId}", produces = { MediaType.APPLICATION_JSON,
+			MediaType.APPLICATION_XML, MediaType.APPLICATION_YML })
 	@Operation(summary = "Finds a Item", description = "Finds a Item", tags = { "Item" }, responses = {
 			@ApiResponse(description = "Success", responseCode = "200", content = @Content(schema = @Schema(implementation = ProdutoVo.class))),
 			@ApiResponse(description = "Bad Rquest", responseCode = "400", content = @Content),
@@ -43,77 +43,59 @@ public class ItemController {
 	public ItemVo findById(@PathVariable(value = "itemId") long id) {
 		return service.findById(id);
 	}
-	@GetMapping(value = "/produtos/{id}/item", produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML})
-	@Operation(summary = "Finds all Produto", description = "Finds all Produto",
-	tags = {"Produtos"},
-	responses = {
-			@ApiResponse(description = "Success", responseCode = "200", 
-					content = {
-							@Content(
-									mediaType = "application/json",
-									array = @ArraySchema(schema = @Schema(implementation = ProdutoVo.class))
-									)
-					}),
+
+	@GetMapping(value = "/produtos/{id}/item", produces = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML,
+			MediaType.APPLICATION_YML })
+	@Operation(summary = "Finds all Produto", description = "Finds all Produto", tags = { "Produtos" }, responses = {
+			@ApiResponse(description = "Success", responseCode = "200", content = {
+					@Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = ProdutoVo.class))) }),
 			@ApiResponse(description = "Bad Rquest", responseCode = "400", content = @Content),
 			@ApiResponse(description = "Unauthorizedt", responseCode = "401", content = @Content),
 			@ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
-			@ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
-	}
-)
-	
+			@ApiResponse(description = "Internal Error", responseCode = "500", content = @Content), })
+
 	public List<ItemVo> findAll() {
 		return service.findAll();
 	}
-	
-	@PostMapping(value = "/produtos/{id}/item", consumes = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML}, 
-			produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML})
-	@Operation(summary = "Add a new Item", description = "Add a new Item by passing in a JSON, XML or YML",
-	tags = {"Item"},
-	responses = {
-			@ApiResponse(description = "Success", responseCode = "200", 
-					content = @Content (schema = @Schema(implementation = ItemVo.class))
-									),
-			@ApiResponse(description = "Bad Rquest", responseCode = "400", content = @Content),
-			@ApiResponse(description = "Unauthorizedt", responseCode = "401", content = @Content),
-			@ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
-	}
-)
-	
+
+	@PostMapping(value = "/produtos/{id}/item", consumes = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML,
+			MediaType.APPLICATION_YML }, produces = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML,
+					MediaType.APPLICATION_YML })
+	@Operation(summary = "Add a new Item", description = "Add a new Item by passing in a JSON, XML or YML", tags = {
+			"Item" }, responses = {
+					@ApiResponse(description = "Success", responseCode = "200", content = @Content(schema = @Schema(implementation = ItemVo.class))),
+					@ApiResponse(description = "Bad Rquest", responseCode = "400", content = @Content),
+					@ApiResponse(description = "Unauthorizedt", responseCode = "401", content = @Content),
+					@ApiResponse(description = "Internal Error", responseCode = "500", content = @Content), })
+
 	public ItemVo create(@RequestBody ItemVo item) {
 		return service.create(item);
 	}
-	
-	@PutMapping(value = "/produtos/{id}/item", consumes = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML}, 
-			produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML})
-	@Operation(summary = "Updates a Item", description = "Updates a Item by passing in a JSON, XML or YML",
-	tags = {"Item"},
-	responses = {
-			@ApiResponse(description = "Updated", responseCode = "200", 
-					content = @Content (schema = @Schema(implementation = ItemVo.class))
-									),
-			@ApiResponse(description = "Bad Rquest", responseCode = "400", content = @Content),
-			@ApiResponse(description = "Unauthorizedt", responseCode = "401", content = @Content),
-			@ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
-			@ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
-	}
-)
-	
+
+	@PutMapping(value = "/produtos/{id}/item", consumes = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML,
+			MediaType.APPLICATION_YML }, produces = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML,
+					MediaType.APPLICATION_YML })
+	@Operation(summary = "Updates a Item", description = "Updates a Item by passing in a JSON, XML or YML", tags = {
+			"Item" }, responses = {
+					@ApiResponse(description = "Updated", responseCode = "200", content = @Content(schema = @Schema(implementation = ItemVo.class))),
+					@ApiResponse(description = "Bad Rquest", responseCode = "400", content = @Content),
+					@ApiResponse(description = "Unauthorizedt", responseCode = "401", content = @Content),
+					@ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
+					@ApiResponse(description = "Internal Error", responseCode = "500", content = @Content), })
+
 	public ItemVo update(@RequestBody ItemVo item) {
 		return service.update(item);
 	}
-	
+
 	@DeleteMapping(value = "/produtos/{id}/item/{idi}")
-	@Operation(summary = "Delete a Produto", description = "Delete a Produto by passing in a JSON, XML or YML",
-	tags = {"Produtos"},
-	responses = {
-			@ApiResponse(description = "NO Content", responseCode = "204", content = @Content),
-			@ApiResponse(description = "Bad Rquest", responseCode = "400", content = @Content),
-			@ApiResponse(description = "Unauthorizedt", responseCode = "401", content = @Content),
-			@ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
-			@ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
-	}
-)
-	
+	@Operation(summary = "Delete a Produto", description = "Delete a Produto by passing in a JSON, XML or YML", tags = {
+			"Produtos" }, responses = {
+					@ApiResponse(description = "NO Content", responseCode = "204", content = @Content),
+					@ApiResponse(description = "Bad Rquest", responseCode = "400", content = @Content),
+					@ApiResponse(description = "Unauthorizedt", responseCode = "401", content = @Content),
+					@ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
+					@ApiResponse(description = "Internal Error", responseCode = "500", content = @Content), })
+
 	public ResponseEntity<?> delete(@PathVariable(value = "idi") long id) {
 		service.delete(id);
 		return ResponseEntity.noContent().build();

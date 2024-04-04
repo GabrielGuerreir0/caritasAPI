@@ -33,10 +33,9 @@ public class UserServices {
 
 	@Autowired
 	UserRepository repositoriy;
-	
 
 	public UserVo findById(long id) {
-		
+
 		logger.info("Find one user!");
 
 		var entity = repositoriy.findById(id)
@@ -44,56 +43,49 @@ public class UserServices {
 		UserVo vo = DozerMapper.ParseObject(entity, UserVo.class);
 		vo.add(linkTo(methodOn(UserController.class).findById(id)).withSelfRel());
 		return vo;
-		
-	} 
-	
-	//UTILIZAÇÃO DE UM UNICO PERFIL POR EMAIL
-	
-	/*public User findByEmail(String email) {
-		return repositoriy.findByEmail(email)
-        .orElseThrow(() -> new ResourceNotFoundExeption("No user found for this email!"));
-	}
-	
-	public UserVo findByEmailAndSenha(String email, String senha) {
-	    logger.info("Find email and senha user!");
 
-	    User entity = findByEmail(email);
-
-	    if (entity != null && encoder.matches(senha, entity.getSenha())) {
-	        UserVo vo = DozerMapper.ParseObject(entity, UserVo.class);
-	        vo.add(linkTo(methodOn(UserController.class).findById(vo.getKey())).withSelfRel());
-	        return vo;
-	    } else {
-	        throw new ResourceNotFoundExeption("Incorrect email or password!");
-	    }
-	}*/
-	public UserVo findByEmailAndSenha(String email, String senha) {
-	    logger.info("Find email and senha user!");
-
-	    List<User> users = repositoriy.findByEmail(email);
-
-	    for (User user : users) {
-	        if (encoder.matches(senha, user.getSenha())) {
-	            UserVo vo = DozerMapper.ParseObject(user, UserVo.class);
-	            vo.add(linkTo(methodOn(UserController.class).findById(vo.getKey())).withSelfRel());
-	            return vo;
-	        }
-	    }
-
-	    throw new ResourceNotFoundExeption("Credenciais inválidas. Por favor, verifique seu email e senha.");
 	}
 
+	// UTILIZAÇÃO DE UM UNICO PERFIL POR EMAIL
 
+	/*
+	 * public User findByEmail(String email) { return repositoriy.findByEmail(email)
+	 * .orElseThrow(() -> new
+	 * ResourceNotFoundExeption("No user found for this email!")); }
+	 * 
+	 * public UserVo findByEmailAndSenha(String email, String senha) {
+	 * logger.info("Find email and senha user!");
+	 * 
+	 * User entity = findByEmail(email);
+	 * 
+	 * if (entity != null && encoder.matches(senha, entity.getSenha())) { UserVo vo
+	 * = DozerMapper.ParseObject(entity, UserVo.class);
+	 * vo.add(linkTo(methodOn(UserController.class).findById(vo.getKey())).
+	 * withSelfRel()); return vo; } else { throw new
+	 * ResourceNotFoundExeption("Incorrect email or password!"); } }
+	 */
+	public UserVo findByEmailAndSenha(String email, String senha) {
+		logger.info("Find email and senha user!");
 
+		List<User> users = repositoriy.findByEmail(email);
+
+		for (User user : users) {
+			if (encoder.matches(senha, user.getSenha())) {
+				UserVo vo = DozerMapper.ParseObject(user, UserVo.class);
+				vo.add(linkTo(methodOn(UserController.class).findById(vo.getKey())).withSelfRel());
+				return vo;
+			}
+		}
+
+		throw new ResourceNotFoundExeption("Credenciais inválidas. Por favor, verifique seu email e senha.");
+	}
 
 	public List<UserVo> findAll() {
 		logger.info("Find all people!!");
 
 		var users = DozerMapper.ParseListObjects(repositoriy.findAll(), UserVo.class);
-		users
-			.stream()
-			.forEach(p -> p.add(linkTo(methodOn(UserController.class).findById(p.getKey())).withSelfRel()));
-			return users;
+		users.stream().forEach(p -> p.add(linkTo(methodOn(UserController.class).findById(p.getKey())).withSelfRel()));
+		return users;
 	}
 
 	public UserVo create(UserVo user) {

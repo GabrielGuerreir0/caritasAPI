@@ -233,7 +233,6 @@ public class FamiliaVo extends RepresentationModel<FamiliaVo> implements Seriali
 		this.estadoEquipamento = estadoEquipamento;
 	}
 
-
 	public String getSelecao() {
 		return selecao;
 	}
@@ -359,7 +358,5 @@ public class FamiliaVo extends RepresentationModel<FamiliaVo> implements Seriali
 				&& Objects.equals(selecao9, other.selecao9) && Objects.equals(tec, other.tec)
 				&& Objects.equals(tel, other.tel) && Objects.equals(telefone, other.telefone);
 	}
-
-	
 
 }

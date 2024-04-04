@@ -6,11 +6,11 @@ import java.util.Date;
 public class ExseptionResponse implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	private Date timestaamp;
 	private String message;
 	private String details;
-	
+
 	public Date getTimestaamp() {
 		return timestaamp;
 	}
@@ -28,5 +28,5 @@ public class ExseptionResponse implements Serializable {
 		this.message = message;
 		this.details = details;
 	}
-	
+
 }

@@ -29,7 +29,7 @@ public class ProdutoServices {
 	ProdutoRepository repositoriy;
 
 	public ProdutoVo findById(long id) {
-		
+
 		logger.info("Find one produto!");
 
 		var entity = repositoriy.findById(id)
@@ -37,17 +37,16 @@ public class ProdutoServices {
 		ProdutoVo vo = DozerMapper.ParseObject(entity, ProdutoVo.class);
 		vo.add(linkTo(methodOn(ProdutosController.class).findById(id)).withSelfRel());
 		return vo;
-		
-	} 
+
+	}
 
 	public List<ProdutoVo> findAll() {
 		logger.info("Find all produtos!!");
 
 		var produtos = DozerMapper.ParseListObjects(repositoriy.findAll(), ProdutoVo.class);
-		produtos
-			.stream()
-			.forEach(p -> p.add(linkTo(methodOn(ProdutosController.class).findById(p.getId())).withSelfRel()));
-			return produtos;
+		produtos.stream()
+				.forEach(p -> p.add(linkTo(methodOn(ProdutosController.class).findById(p.getId())).withSelfRel()));
+		return produtos;
 	}
 
 	public ProdutoVo create(ProdutoVo produto) {
@@ -65,14 +64,14 @@ public class ProdutoServices {
 
 		var entity = repositoriy.findById(produto.getId())
 				.orElseThrow(() -> new ResourceNotFoundExeption("No records found for this ID!"));
-		
+
 		entity.setColhidos(produto.getColhidos());
 		entity.setConsumidos(produto.getConsumidos());
 		entity.setCultivados(produto.getCultivados());
 		entity.setDescricao(produto.getDescricao());
 		entity.setNome(produto.getNome());
 		entity.setNomef(produto.getNomef());
-		
+
 		var vo = DozerMapper.ParseObject(repositoriy.save(entity), ProdutoVo.class);
 		vo.add(linkTo(methodOn(ProdutosController.class).findById(vo.getId())).withSelfRel());
 		return vo;

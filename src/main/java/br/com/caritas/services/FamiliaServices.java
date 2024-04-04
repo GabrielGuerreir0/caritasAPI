@@ -2,7 +2,6 @@ package br.com.caritas.services;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
-
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 import java.util.List;
@@ -28,7 +27,7 @@ public class FamiliaServices {
 	FamiliaRepository repositoriy;
 
 	public FamiliaVo findById(long id) {
-		
+
 		logger.info("Find one produto!");
 
 		var entity = repositoriy.findById(id)
@@ -36,17 +35,16 @@ public class FamiliaServices {
 		FamiliaVo vo = DozerMapper.ParseObject(entity, FamiliaVo.class);
 		vo.add(linkTo(methodOn(FamiliaController.class).findById(id)).withSelfRel());
 		return vo;
-		
-	} 
+
+	}
 
 	public List<FamiliaVo> findAll() {
 		logger.info("Find all produtos!!");
 
 		var produtos = DozerMapper.ParseListObjects(repositoriy.findAll(), FamiliaVo.class);
-		produtos
-			.stream()
-			.forEach(p -> p.add(linkTo(methodOn(FamiliaController.class).findById(p.getId())).withSelfRel()));
-			return produtos;
+		produtos.stream()
+				.forEach(p -> p.add(linkTo(methodOn(FamiliaController.class).findById(p.getId())).withSelfRel()));
+		return produtos;
 	}
 
 	public FamiliaVo create(FamiliaVo familia) {
@@ -64,7 +62,7 @@ public class FamiliaServices {
 
 		var entity = repositoriy.findById(familia.getId())
 				.orElseThrow(() -> new ResourceNotFoundExeption("No records found for this ID!"));
-		
+
 		entity.setNome(familia.getNome());
 		entity.setTelefone(familia.getTelefone());
 		entity.setTec(familia.getTec());
@@ -98,9 +96,6 @@ public class FamiliaServices {
 		entity.setSelecao11(familia.getSelecao11());
 		entity.setSelecao12(familia.getSelecao12());
 
-		
-		
-		
 		var vo = DozerMapper.ParseObject(repositoriy.save(entity), FamiliaVo.class);
 		vo.add(linkTo(methodOn(FamiliaController.class).findById(vo.getId())).withSelfRel());
 		return vo;

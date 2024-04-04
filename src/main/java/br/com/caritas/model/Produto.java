@@ -12,31 +12,30 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
-
 @Entity
-@Table(name="produto")
-public class Produto implements Serializable{
-	
+@Table(name = "produto")
+public class Produto implements Serializable {
+
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue
 	private Long id;
 	@Column
-    private String descricao;
+	private String descricao;
 	@Column
-    private String colhidos;
+	private String colhidos;
 	@Column
-    private String consumidos;
+	private String consumidos;
 	@Column
-    private String cultivados;
+	private String cultivados;
 	@Column
-    private String nome;
+	private String nome;
 	@Column
-    private String nomef;
-	
+	private String nomef;
+
 	@OneToMany(mappedBy = "produto", cascade = CascadeType.ALL)
-    private List<Item> itens;
+	private List<Item> itens;
 
 	public Long getId() {
 		return id;
@@ -121,8 +120,5 @@ public class Produto implements Serializable{
 				&& Objects.equals(id, other.id) && Objects.equals(itens, other.itens)
 				&& Objects.equals(nome, other.nome) && Objects.equals(nomef, other.nomef);
 	}
-	
-	
-	
 
 }
