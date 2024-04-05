@@ -5,17 +5,9 @@ import java.util.Objects;
 
 import org.springframework.hateoas.RepresentationModel;
 
-import br.com.caritas.model.Produto;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
 
-@Entity
-@Table(name = "item")
 public class ItemVo extends RepresentationModel<ItemVo> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -29,7 +21,6 @@ public class ItemVo extends RepresentationModel<ItemVo> implements Serializable 
 	private String cultivados;
 	private String nome;
 	private String nomef;
-	private Produto produto;
 
 	public Long getId() {
 		return id;
@@ -87,19 +78,11 @@ public class ItemVo extends RepresentationModel<ItemVo> implements Serializable 
 		this.nomef = nomef;
 	}
 
-	public Produto getProduto() {
-		return produto;
-	}
-
-	public void setProduto(Produto produto) {
-		this.produto = produto;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
-		result = prime * result + Objects.hash(colhidos, consumidos, cultivados, descricao, id, nome, nomef, produto);
+		result = prime * result + Objects.hash(colhidos, consumidos, cultivados, descricao, id, nome, nomef);
 		return result;
 	}
 
@@ -115,7 +98,11 @@ public class ItemVo extends RepresentationModel<ItemVo> implements Serializable 
 		return Objects.equals(colhidos, other.colhidos) && Objects.equals(consumidos, other.consumidos)
 				&& Objects.equals(cultivados, other.cultivados) && Objects.equals(descricao, other.descricao)
 				&& Objects.equals(id, other.id) && Objects.equals(nome, other.nome)
-				&& Objects.equals(nomef, other.nomef) && Objects.equals(produto, other.produto);
+				&& Objects.equals(nomef, other.nomef);
 	}
+
+	
+
+	
 
 }

@@ -4,7 +4,6 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 import java.util.List;
-import java.util.concurrent.atomic.AtomicLong;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,12 +15,10 @@ import br.com.caritas.exceptions.ResourceNotFoundExeption;
 import br.com.caritas.mapper.DozerMapper;
 import br.com.caritas.model.Produto;
 import br.com.caritas.repositories.ProdutoRepository;
-import jakarta.annotation.security.DenyAll;
 
 @Service
 public class ProdutoServices {
 
-	private final AtomicLong conter = new AtomicLong();
 
 	private Logger logger = Logger.getLogger(ProdutoServices.class.getName());
 

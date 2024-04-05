@@ -1,14 +1,14 @@
 package br.com.caritas.services;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
-
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 import java.util.List;
-import java.util.concurrent.atomic.AtomicLong;
 import java.util.logging.Logger;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import br.com.caritas.controllers.FamiliaController;
 import br.com.caritas.data.vo.v1.FamiliaVo;
 import br.com.caritas.exceptions.ResourceNotFoundExeption;
@@ -19,7 +19,6 @@ import br.com.caritas.repositories.FamiliaRepository;
 @Service
 public class FamiliaServices {
 
-	private final AtomicLong conter = new AtomicLong();
 
 	private Logger logger = Logger.getLogger(FamiliaServices.class.getName());
 

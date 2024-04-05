@@ -54,7 +54,8 @@ public class ItemController {
 			@ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
 			@ApiResponse(description = "Internal Error", responseCode = "500", content = @Content), })
 
-	public List<ItemVo> findAll() {
+	public List<ItemVo> findAll() {  
+		
 		return service.findAll();
 	}
 
@@ -87,7 +88,7 @@ public class ItemController {
 		return service.update(item);
 	}
 
-	@DeleteMapping(value = "/produtos/{id}/item/{idi}")
+	@DeleteMapping(value = "/produtos/{id}/item/{di}")
 	@Operation(summary = "Delete a Produto", description = "Delete a Produto by passing in a JSON, XML or YML", tags = {
 			"Produtos" }, responses = {
 					@ApiResponse(description = "NO Content", responseCode = "204", content = @Content),
@@ -96,7 +97,7 @@ public class ItemController {
 					@ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
 					@ApiResponse(description = "Internal Error", responseCode = "500", content = @Content), })
 
-	public ResponseEntity<?> delete(@PathVariable(value = "idi") long id) {
+	public ResponseEntity<?> delete(@PathVariable(value = "di") long id) {
 		service.delete(id);
 		return ResponseEntity.noContent().build();
 	}

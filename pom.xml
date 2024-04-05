@@ -19,15 +19,11 @@
 		<springdoc.version>2.0.2</springdoc.version>
 		<testcontainers.version>1.16.3</testcontainers.version>
 		<rest-assured.version>4.5.0</rest-assured.version>
+		<rjava-jwt.version>3.18.3</rjava-jwt.version>
 	</properties>
 	<dependencies>
 		
 		
-		<!-- Dependências básicas do Spring Boot -->
-    <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-web</artifactId>
-    </dependency>
 
     <!-- Dependência do Spring Security -->
     <dependency>

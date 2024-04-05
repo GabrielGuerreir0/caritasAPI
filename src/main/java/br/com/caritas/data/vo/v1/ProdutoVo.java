@@ -5,17 +5,10 @@ import java.util.Objects;
 
 import org.springframework.hateoas.RepresentationModel;
 
-import br.com.caritas.model.Item;
-import br.com.caritas.model.Produto;
-import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
 
-@Entity
-@Table(name = "produto")
+
 public class ProdutoVo extends RepresentationModel<ProdutoVo> implements Serializable {
 
 	private static final long serialVersionUID = 1L;

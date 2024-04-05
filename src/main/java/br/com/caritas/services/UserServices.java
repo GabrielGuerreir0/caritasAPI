@@ -4,7 +4,6 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 import java.util.List;
-import java.util.concurrent.atomic.AtomicLong;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,12 +16,10 @@ import br.com.caritas.exceptions.ResourceNotFoundExeption;
 import br.com.caritas.mapper.DozerMapper;
 import br.com.caritas.model.User;
 import br.com.caritas.repositories.UserRepository;
-import jakarta.persistence.Entity;
 
 @Service
 public class UserServices {
 
-	private final AtomicLong conter = new AtomicLong();
 	private final PasswordEncoder encoder;
 
 	public UserServices(PasswordEncoder encoder) {
@@ -64,6 +61,7 @@ public class UserServices {
 	 * withSelfRel()); return vo; } else { throw new
 	 * ResourceNotFoundExeption("Incorrect email or password!"); } }
 	 */
+	
 	public UserVo findByEmailAndSenha(String email, String senha) {
 		logger.info("Find email and senha user!");
 
