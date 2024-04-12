@@ -62,21 +62,21 @@ public class UserServices {
 	 * ResourceNotFoundExeption("Incorrect email or password!"); } }
 	 */
 	
-	public UserVo findByEmailAndSenha(String email, String senha) {
-		logger.info("Find email and senha user!");
-
-		List<User> users = repositoriy.findByEmail(email);
-
-		for (User user : users) {
-			if (encoder.matches(senha, user.getSenha())) {
-				UserVo vo = DozerMapper.ParseObject(user, UserVo.class);
-				vo.add(linkTo(methodOn(UserController.class).findById(vo.getKey())).withSelfRel());
-				return vo;
-			}
-		}
-
-		throw new ResourceNotFoundExeption("Credenciais inválidas. Por favor, verifique seu email e senha.");
-	}
+	/*
+	 * public UserVo findByEmailAndSenha(String email, String senha) {
+	 * logger.info("Find email and senha user!");
+	 * 
+	 * List<User> users = repositoriy.findByEmail(email);
+	 * 
+	 * for (User user : users) { if (encoder.matches(senha, user.getSenha())) {
+	 * UserVo vo = DozerMapper.ParseObject(user, UserVo.class);
+	 * vo.add(linkTo(methodOn(UserController.class).findById(vo.getKey())).
+	 * withSelfRel()); return vo; } }
+	 * 
+	 * throw new
+	 * ResourceNotFoundExeption("Credenciais inválidas. Por favor, verifique seu email e senha."
+	 * ); }
+	 */
 
 	public List<UserVo> findAll() {
 		logger.info("Find all people!!");
