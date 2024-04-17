@@ -11,10 +11,16 @@ import io.swagger.v3.oas.models.info.License;
 public class OpenApiConfig {
 
 	@Bean
-	public OpenAPI custonOpenAPI() {
-		return new OpenAPI().info(new Info().title("CARITAS RESTful API with Java 18 and spring boot 3").version("v1")
-				.description("API para gerenciamento da aplicação web da fundação caritas")
-				.termsOfService("https//:pub.caritas.com.br/resp-api")
-				.license(new License().name("Apache 2.0").url("https//:pub.caritas.com.br/resp-api")));
+	public OpenAPI customOpenAPI() {
+	    return new OpenAPI().info(new Info()
+	            .title("CARITAS RESTful API with Java 18 and Spring Boot 3")
+	            .version("v1")
+	            .description("API para gerenciamento da aplicação web da fundação Caritas")
+	            .termsOfService("https://pub.caritas.com.br/resp-api") // Corrigido o URL
+	            .license(new License()
+	                .name("Apache 2.0")
+	                .url("https://pub.caritas.com.br/resp-api") // Corrigido o URL
+	            )
+	    );
 	}
 }

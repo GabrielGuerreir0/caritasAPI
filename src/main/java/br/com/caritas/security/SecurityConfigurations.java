@@ -18,6 +18,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class SecurityConfigurations {
 	
+	
 	@Autowired
 	SecurityFilter securityFilter; 
 	
@@ -29,13 +30,17 @@ public class SecurityConfigurations {
 				.authorizeHttpRequests(authorize -> authorize
 						.requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
 						.requestMatchers(HttpMethod.GET, "/user/{id}").hasRole("ADMIN")
+						.requestMatchers(HttpMethod.GET, "/swagger-ui/**").permitAll()
+						.requestMatchers(HttpMethod.GET, "/v3/api-docs/**").permitAll()
 						.requestMatchers(HttpMethod.GET, "/user").hasRole("ADMIN")
-						.requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
+						.requestMatchers(HttpMethod.POST, "/auth/register").hasRole("GERENTE")
 						.anyRequest().authenticated()
 				)
 				.addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
 				.build();
 	}
+	
+        
 	@Bean
 	public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception  {
 		return authenticationConfiguration.getAuthenticationManager();	
@@ -45,6 +50,5 @@ public class SecurityConfigurations {
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
-	
 	
 }
